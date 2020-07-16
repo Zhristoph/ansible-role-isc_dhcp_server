@@ -1,0 +1,17 @@
+---
+- name: Install ISC DHCP server
+  tags: dhcpserver
+  apt:
+    name: "isc-dhcp-server"
+
+- name: Set ISC DHCP server config
+  tags: dhcpserver
+  template:
+    src: "{{ item }}"
+    dest: "/etc/{{ item }}"
+  notify: restart isc-dhcp-server
+  with_items:
+    - default/isc-dhcp-server
+    - dhcp/dhcpd.conf
+    - dhcp/dhcpd6.conf
+
