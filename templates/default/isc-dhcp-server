@@ -14,5 +14,5 @@
 
 # On what interfaces should the DHCP server (dhcpd) serve DHCP requests?
 #	Separate multiple interfaces with spaces, e.g. "eth0 eth1".
-INTERFACESv4="{{ dhcpv4Interfaces }}"
-INTERFACESv6="{{ dhcpv6Interfaces }}"
+INTERFACESv4="{% for network in dhcp4Networks.items() %}{{ network.1.interfaces }} {% endfor %}"
+INTERFACESv6="{% for network in dhcp6Networks.items() %}{{ network.1.interfaces }} {% endfor %}"
