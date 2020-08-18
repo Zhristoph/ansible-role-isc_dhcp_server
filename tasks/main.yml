@@ -4,6 +4,36 @@
   apt:
     name: "isc-dhcp-server"
 
+- name: Create dhcp config directories
+  tags: dhcpserver
+  file:
+    dest: "/etc/dhcp/{{ item }}"
+    owner: root
+    group: root
+    mode: 0755
+    state: directory
+  with_items:
+   - dhcpd.conf.d
+   - dhcpd6.conf.d
+
+- name: Set per network dhcp v4 config
+  tags: dhcpserver
+  template:
+    src: dhcp/network.conf
+    dest: "/etc/dhcp/dhcpd.conf.d/{{ item.key }}.conf"
+  notify: restart isc-dhcp-server
+  with_dict:
+    - "{{ dhcp4Networks }}"
+
+- name: Set per network dhcp v6 config
+  tags: dhcpserver
+  template:
+    src: dhcp/network.conf
+    dest: "/etc/dhcp/dhcpd6.conf.d/{{ item.key }}.conf"
+  notify: restart isc-dhcp-server
+  with_dict:
+    - "{{ dhcp6Networks }}"
+
 - name: Set ISC DHCP server config
   tags: dhcpserver
   template:
@@ -14,4 +44,3 @@
     - default/isc-dhcp-server
     - dhcp/dhcpd.conf
     - dhcp/dhcpd6.conf
-
