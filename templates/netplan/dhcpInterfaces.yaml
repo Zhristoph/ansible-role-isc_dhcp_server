@@ -5,6 +5,7 @@ network:
         macaddress: {{ item.value.macAddress }}
       set-name: {{ item.key }}
       addresses: {{ item.value.ipAddresses }}
+      accept-ra: false
       optional: true
   version: 2
 
