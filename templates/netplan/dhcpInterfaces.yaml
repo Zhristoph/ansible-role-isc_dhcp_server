@@ -1,0 +1,10 @@
+network:
+  ethernets:
+    {{ item.key }}:
+      match:
+        macaddress: {{ item.value.macAddress }}
+      set-name: {{ item.key }}
+      addresses: {{ item.value.ipAddresses }}
+      optional: true
+  version: 2
+

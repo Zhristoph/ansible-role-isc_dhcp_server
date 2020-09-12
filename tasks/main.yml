@@ -16,6 +16,14 @@
    - dhcpd.conf.d
    - dhcpd6.conf.d
 
+- name: Configure dhcp interfaces
+  tags: dhcpserver
+  template:
+    src: netplan/dhcpInterfaces.yaml
+    dest: "/etc/netplan/{{ item.key }}.yaml"
+  with_dict:
+    - "{{ dhcpInterfaces }}"
+
 - name: Set per network dhcp v4 config
   tags: dhcpserver
   template:
