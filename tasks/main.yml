@@ -20,8 +20,8 @@
   tags: dhcpserver
   template:
     src: netplan/dhcpInterfaces.yaml
-    dest: "/etc/netplan/{{ item.key }}.yaml"
-  with_dict:
+    dest: "/etc/netplan/{{ item.networkName }}.yaml"
+  with_items:
     - "{{ dhcpInterfaces }}"
 
 - name: Set per network dhcp v4 config

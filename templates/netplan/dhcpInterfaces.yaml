@@ -1,10 +1,10 @@
 network:
   ethernets:
-    {{ item.key }}:
+    {{ item.networkName }}:
       match:
-        macaddress: {{ item.value.macAddress }}
-      set-name: {{ item.key }}
-      addresses: {{ item.value.ipAddresses }}
+        macaddress: {{ item.macAddress }}
+      set-name: {{ item.networkName }}
+      addresses: {{ item.ipAddresses }}
       accept-ra: false
       optional: true
   version: 2
