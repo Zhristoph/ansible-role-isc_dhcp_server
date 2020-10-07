@@ -1,3 +1,7 @@
-dhcpInterfaces: ""
+dhcpInterfaces:
+  - networkName: ""
+    macAddress: ""
+    ipAddresses: []
+    nat: []
 dhcp4Networks: {}
 dhcp6Networks: {}
