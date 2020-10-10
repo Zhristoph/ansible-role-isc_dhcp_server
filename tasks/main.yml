@@ -23,24 +23,27 @@
     dest: "/etc/netplan/{{ item.networkName }}.yaml"
   with_items:
     - "{{ networks }}"
+  when: item.networkName != "" and item.interfaceAddresses != ""
 
 - name: Set per network dhcp v4 config
   tags: dhcpserver
   template:
-    src: dhcp/network.conf
+    src: dhcp/network4.conf
     dest: "/etc/dhcp/dhcpd.conf.d/{{ item.networkName }}.conf"
   notify: restart isc-dhcp-server
   with_items:
     - "{{ networks }}"
+  when: item.network4 is defined and item.network4 != ""
 
 - name: Set per network dhcp v6 config
   tags: dhcpserver
   template:
-    src: dhcp/network.conf
+    src: dhcp/network6.conf
     dest: "/etc/dhcp/dhcpd6.conf.d/{{ item.networkName }}.conf"
   notify: restart isc-dhcp-server
   with_items:
     - "{{ networks }}"
+  when: item.network6 is defined and item.network6 != ""
 
 - name: Set ISC DHCP server config
   tags: dhcpserver
