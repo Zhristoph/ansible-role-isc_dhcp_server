@@ -4,7 +4,7 @@ network:
       match:
         macaddress: {{ item.macAddress }}
       set-name: {{ item.networkName }}
-      addresses: {{ item.ipAddresses }}
+      addresses: {{ item.interfaceAddresses }}
       accept-ra: false
       optional: true
   version: 2

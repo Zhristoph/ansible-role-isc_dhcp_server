@@ -22,25 +22,25 @@
     src: netplan/dhcpInterfaces.yaml
     dest: "/etc/netplan/{{ item.networkName }}.yaml"
   with_items:
-    - "{{ dhcpInterfaces }}"
+    - "{{ networks }}"
 
 - name: Set per network dhcp v4 config
   tags: dhcpserver
   template:
     src: dhcp/network.conf
-    dest: "/etc/dhcp/dhcpd.conf.d/{{ item.key }}.conf"
+    dest: "/etc/dhcp/dhcpd.conf.d/{{ item.networkName }}.conf"
   notify: restart isc-dhcp-server
-  with_dict:
-    - "{{ dhcp4Networks }}"
+  with_items:
+    - "{{ networks }}"
 
 - name: Set per network dhcp v6 config
   tags: dhcpserver
   template:
     src: dhcp/network.conf
-    dest: "/etc/dhcp/dhcpd6.conf.d/{{ item.key }}.conf"
+    dest: "/etc/dhcp/dhcpd6.conf.d/{{ item.networkName }}.conf"
   notify: restart isc-dhcp-server
-  with_dict:
-    - "{{ dhcp6Networks }}"
+  with_items:
+    - "{{ networks }}"
 
 - name: Set ISC DHCP server config
   tags: dhcpserver

@@ -1,3 +1,1 @@
-dhcpInterfaces: ""
-dhcp4Networks: {}
-dhcp6Networks: {}
+networks: 
